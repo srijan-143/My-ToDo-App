@@ -1,7 +1,7 @@
 // client/src/App.jsx
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import TodoForm from './components/todoForm';
+import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import axios from 'axios'; // Import axios
 //import React, { useState } from 'react';
