@@ -14,7 +14,7 @@ function App() {
   const [todos, setTodos] = useState([]);
 
   // Base URL for your backend API (ensure this matches your backend's port)
-  const API_URL = 'http://localhost:5000/api/todos';
+  const API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/todos';
 
   // useEffect to fetch todos from the backend when the component first loads
   useEffect(() => {
