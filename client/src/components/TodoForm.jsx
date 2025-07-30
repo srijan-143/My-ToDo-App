@@ -1,8 +1,10 @@
 // client/src/components/TodoForm.jsx
-import React, { useState } from 'react';
-import './TodoForm.css'; // We'll create this CSS file next
 
-function TodoForm({ onAddTodo }) { // onAddTodo will be a prop from App.jsx
+import React, { useState } from 'react';
+// Remove './TodoForm.css'; if you prefer to only use Tailwind classes directly.
+// If you keep the import, the file can be empty or contain only very specific custom CSS.
+
+function TodoForm({ onAddTodo }) {
     const [todoText, setTodoText] = useState('');
 
     const handleSubmit = async (e) => {
@@ -14,15 +16,21 @@ function TodoForm({ onAddTodo }) { // onAddTodo will be a prop from App.jsx
     };
 
     return (
-        <form onSubmit={handleSubmit} className="todo-form">
+        // Use Tailwind classes for a modern form layout and styling
+        <form onSubmit={handleSubmit} className="flex items-center w-full max-w-lg mb-6">
             <input
                 type="text"
                 placeholder="Add a new to-do..."
                 value={todoText}
                 onChange={(e) => setTodoText(e.target.value)}
-                className="todo-input"
+                className="flex-grow p-3 border-2 border-gray-300 rounded-l-lg text-lg focus:outline-none focus:border-blue-500 transition-all duration-200 shadow-sm"
             />
-            <button type="submit" className="todo-button">Add To-Do</button>
+            <button
+                type="submit"
+                className="px-6 py-3 bg-blue-600 text-white font-bold rounded-r-lg text-lg hover:bg-blue-700 transition-colors duration-200 shadow-md transform hover:scale-105"
+            >
+                Add Task
+            </button>
         </form>
     );
 }
