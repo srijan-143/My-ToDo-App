@@ -1,32 +1,20 @@
 /* client/src/index.css */
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;     /* Injects Tailwind's base styles and browser resets */
+@tailwind components; /* Injects Tailwind's component layer (useful for custom components or plugins) */
+@tailwind utilities; /* Injects all of Tailwind's utility classes */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+/* Custom global styles (optional - typically, most styling will be done with Tailwind classes directly in JSX) */
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  margin: 0; /* Remove default body margin */
+  /* Tailwind's base often handles font-family and other basic resets */
 }
 
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  width: 100%; /* Ensure it takes full width within body flex */
+  min-height: 100vh;      /* Ensure the root container takes full viewport height */
+  display: flex;          /* Use flexbox for centering */
+  justify-content: center; /* Center content horizontally */
+  align-items: center;    /* Center content vertically */
+  width: 100%;            /* Ensure it takes full width */
+  background-color: #f3f4f6; /* A very light gray background for the entire page */
 }
