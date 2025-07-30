@@ -1,20 +1,49 @@
 /* client/src/index.css */
 
-@tailwind base;     /* Injects Tailwind's base styles and browser resets */
-@tailwind components; /* Injects Tailwind's component layer (useful for custom components or plugins) */
-@tailwind utilities; /* Injects all of Tailwind's utility classes */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap'); /* Import a modern font */
 
-/* Custom global styles (optional - typically, most styling will be done with Tailwind classes directly in JSX) */
-body {
-  margin: 0; /* Remove default body margin */
-  /* Tailwind's base often handles font-family and other basic resets */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles for the dark mode transition and scrollbar */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  scroll-behavior: smooth; /* Smooth scrolling */
 }
 
+/* Apply default dark mode styles */
+html {
+  @apply bg-dark-bg text-dark-text font-sans; /* Apply dark background, text color, and custom font */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
+}
+
+/* Specific styles for scrollbar (modern aesthetic) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #2d3748; /* Dark card color */
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #4a5568; /* Slightly lighter gray */
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #81e6d9; /* Accent blue on hover */
+}
+
+/* Adjust #root for centering */
 #root {
-  min-height: 100vh;      /* Ensure the root container takes full viewport height */
-  display: flex;          /* Use flexbox for centering */
-  justify-content: center; /* Center content horizontally */
-  align-items: center;    /* Center content vertically */
-  width: 100%;            /* Ensure it takes full width */
-  background-color: #f3f4f6; /* A very light gray background for the entire page */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 1rem; /* Add some padding around the main content */
 }
