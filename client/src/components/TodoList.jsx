@@ -2,7 +2,7 @@
 
 import React from 'react';
 import TodoItem from './TodoItem';
-// Ensure './TodoList.css' import is removed if the file is empty
+// Remove './TodoList.css'; if you prefer to only use Tailwind classes directly.
 
 function TodoList({ todos, onDeleteTodo, onToggleComplete }) {
     return (

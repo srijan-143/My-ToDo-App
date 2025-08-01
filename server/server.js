@@ -1,10 +1,11 @@
 // server.js
-require('dotenv').config(); // Load environment variables first
+require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const connectDB = require('./config/db'); // Import database connection function
-const todoRoutes = require('./routes/todoRoutes'); // Import your todo routes
+const connectDB = require('./config/db');
+const todoRoutes = require('./routes/todoRoutes');    // Existing Todo routes
+const authRoutes = require('./routes/authRoutes');    // NEW: Auth routes
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -13,13 +14,16 @@ const port = process.env.PORT || 5000;
 connectDB();
 
 // Middleware
-app.use(cors()); // Enable Cross-Origin Resource Sharing
-app.use(express.json()); // Body parser for JSON data
+app.use(cors());
+app.use(express.json());
 
-// Mount Router: Use the todoRoutes for all requests starting with '/api/todos'
+// Mount Auth Router
+app.use('/api/auth', authRoutes); // NEW: Use authRoutes for /api/auth endpoints
+
+// Mount Todo Router
 app.use('/api/todos', todoRoutes);
 
-// Simple root route (optional, for testing if server is up)
+// Simple root route
 app.get('/', (req, res) => {
     res.send('API is running...');
 });
@@ -27,5 +31,6 @@ app.get('/', (req, res) => {
 // Start the server
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
-    console.log(`Access API at: http://localhost:${port}/api/todos`);
+    console.log(`Auth API at: http://localhost:${port}/api/auth`); // NEW: Log auth API URL
+    console.log(`Todo API at: http://localhost:${port}/api/todos`);
 });

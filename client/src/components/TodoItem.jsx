@@ -1,10 +1,12 @@
 // client/src/components/TodoItem.jsx
 
 import React from 'react';
-// Ensure './TodoItem.css' import is removed if the file is empty
+// Remove './TodoItem.css'; if you prefer to only use Tailwind classes directly.
+// If you keep the import, the file can be empty or contain only very specific custom CSS.
 
 function TodoItem({ todo, onDelete, onToggleComplete }) {
     return (
+        // Use Tailwind classes for item styling, conditional classes for 'completed' state
         <li className={`flex justify-between items-center p-4 mb-4 bg-gray-700 border border-gray-600 rounded-lg shadow-xl transition-all duration-300 transform hover:scale-[1.01] hover:shadow-2xl ${todo.completed ? 'opacity-70 border-l-4 border-green-500' : 'border-l-4 border-accent-blue animate-fade-in'}`}>
             <span
                 onClick={() => onToggleComplete(todo._id || todo.id)}
