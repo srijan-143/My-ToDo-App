@@ -12,8 +12,12 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Still need this for initial check
-  const API_URL = 'http://localhost:5000/api/todos'; // Your local backend URL for now
-  const AUTH_API_URL = 'http://localhost:5000/api/auth';
+
+
+
+const API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/todos'; // Ensure this is your deployed backend URL
+const AUTH_API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/auth'; // <--- THIS is crucial for deployed auth
+
   const navigate = useNavigate();
 
   // --- Function to handle user login/registration submission ---
