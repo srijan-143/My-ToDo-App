@@ -1,49 +1,67 @@
 /* client/src/index.css */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap'); /* Import a modern font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles for the dark mode transition and scrollbar */
-html, body, #root {
+body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow-x: hidden; /* Prevent horizontal scroll */
-  scroll-behavior: smooth; /* Smooth scrolling */
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-/* Apply default dark mode styles */
-html {
-  @apply bg-dark-bg text-dark-text font-sans; /* Apply dark background, text color, and custom font */
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
+html.dark {
+    @apply bg-dark-bg text-dark-text font-sans;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Specific styles for scrollbar (modern aesthetic) */
+html.hello-kitty-theme {
+    /* Apply the pink background color */
+    @apply bg-hk-light-pink text-hk-dark-primary font-sans; /* Changed text color for better contrast on pink */
+
+    /* Reference the bow.png image directly from the public folder */
+    background-image: url('/bow.png');
+    background-repeat: repeat; /* Make the image repeat */
+    background-size: 100px; /* Adjust size of each bow as needed */
+
+    /* Define and apply the animation for the background */
+    animation: slideBackground 60s linear infinite; /* Slower animation for subtle effect */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* NEW: Define the keyframes for the slideBackground animation */
+@keyframes slideBackground {
+  from { background-position: 0 0; }
+  to { background-position: 100% 100%; } /* Slides diagonally */
+}
+
+
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #2d3748; /* Dark card color */
+  background: #2d3748;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #4a5568; /* Slightly lighter gray */
+  background: #4a5568;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #81e6d9; /* Accent blue on hover */
+  background: #81e6d9;
 }
 
-/* Adjust #root for centering */
 #root {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   width: 100%;
-  padding: 1rem; /* Add some padding around the main content */
+  padding: 1rem;
+  position: relative;
 }

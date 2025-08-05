@@ -11,10 +11,15 @@ const todoSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    owner: { // NEW: Link to the User model
+        type: mongoose.Schema.Types.ObjectId, // This type indicates it's an ID from another document
+        required: true,
+        ref: 'User' // This specifies that the ID refers to a document in the 'users' collection
+    },
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
 
-module.exports = mongoose.model('Todo', todoSchema); // 'Todo' will be the collection name (MongoDB pluralizes it to 'todos')
+module.exports = mongoose.model('Todo', todoSchema);

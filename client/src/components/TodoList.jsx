@@ -1,22 +1,21 @@
 // client/src/components/TodoList.jsx
-
 import React from 'react';
 import TodoItem from './TodoItem';
-// Remove './TodoList.css'; if you prefer to only use Tailwind classes directly.
 
-function TodoList({ todos, onDeleteTodo, onToggleComplete }) {
+function TodoList({ todos, onDeleteTodo, onToggleComplete, isHelloKittyTheme }) {
     return (
-        <div className="w-full max-w-lg mt-8"> {/* Container for the list */}
+        <div className="w-full max-w-lg mt-8">
             {todos.length === 0 ? (
-                <p className="text-dark-text-muted text-lg italic mt-8 text-center">No tasks yet! Add some above.</p>
+                <p className={`text-lg italic mt-8 text-center ${isHelloKittyTheme ? 'text-hk-dark-primary' : 'text-dark-text-muted'}`}>No tasks yet! Add some above.</p>
             ) : (
-                <ul className="list-none p-0 m-0"> {/* Styled as a simple list */}
+                <ul className="list-none p-0 m-0">
                     {todos.map(todo => (
                         <TodoItem
                             key={todo._id || todo.id}
                             todo={todo}
                             onDelete={onDeleteTodo}
                             onToggleComplete={onToggleComplete}
+                            isHelloKittyTheme={isHelloKittyTheme}
                         />
                     ))}
                 </ul>

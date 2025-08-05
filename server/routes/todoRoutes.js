@@ -1,16 +1,16 @@
 // server/routes/todoRoutes.js
 const express = require('express');
-const router = express.Router(); // Create an Express router
-const todoController = require('../controllers/todoController'); // Import controller functions
+const router = express.Router();
+const todoController = require('../controllers/todoController');
+const { protect } = require('../middleware/authMiddleware'); // NEW: Import protect middleware
 
-// Routes for /api/todos
+// All these routes now require authentication
 router.route('/')
-    .get(todoController.getTodos) // Handles GET requests to /api/todos
-    .post(todoController.addTodo); // Handles POST requests to /api/todos
+    .get(protect, todoController.getTodos) // Apply protect middleware
+    .post(protect, todoController.addTodo); // Apply protect middleware
 
-// Routes for /api/todos/:id
 router.route('/:id')
-    .delete(todoController.deleteTodo) // Handles DELETE requests to /api/todos/:id
-    .put(todoController.updateTodo);   // Handles PUT requests to /api/todos/:id
+    .delete(protect, todoController.deleteTodo) // Apply protect middleware
+    .put(protect, todoController.updateTodo);   // Apply protect middleware
 
-module.exports = router; // Export the router
+module.exports = router;

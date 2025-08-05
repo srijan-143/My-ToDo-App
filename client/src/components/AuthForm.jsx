@@ -1,13 +1,12 @@
 // client/src/components/AuthForm.jsx
-
 import React, { useState } from 'react';
 
-function AuthForm({ type, onSubmit }) {
+function AuthForm({ type, onSubmit, isHelloKittyTheme }) {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [loginIdentifier, setLoginIdentifier] = useState(''); // NEW state for login input
+    const [loginIdentifier, setLoginIdentifier] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -16,15 +15,23 @@ function AuthForm({ type, onSubmit }) {
                 alert('Passwords do not match!');
                 return;
             }
-            onSubmit({ username, email, password }); // For registration, send all fields
-        } else { // type === 'login'
-            onSubmit({ identifier: loginIdentifier, password }); // For login, send identifier and password
+            onSubmit({ username, email, password });
+        } else {
+            onSubmit({ identifier: loginIdentifier, password });
         }
     };
 
+    const formCardClasses = `p-8 rounded-xl shadow-2xl w-full max-w-md mx-auto flex flex-col items-center
+        ${isHelloKittyTheme ? 'bg-hk-light-pink border-hk-pink shadow-lg' : 'bg-dark-card border border-gray-700'}`;
+    const inputClasses = `w-full p-3 mb-4 border-2 rounded-md focus:outline-none transition-all duration-200 placeholder-gray-400
+        ${isHelloKittyTheme ? 'border-hk-pink bg-hk-white text-hk-dark-primary focus:border-hk-red' : 'border-gray-600 bg-gray-800 text-dark-text focus:border-accent-blue'}`;
+    const buttonClasses = `w-full px-6 py-3 font-bold rounded-md text-lg shadow-lg transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-opacity-50
+        ${isHelloKittyTheme ? 'bg-hk-red text-hk-white hover:bg-hk-pink focus:ring-hk-red' : 'bg-accent-blue text-dark-bg hover:bg-accent-purple focus:ring-accent-blue'}`;
+    const headingClasses = `text-3xl font-extrabold mb-6 ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`;
+
     return (
-        <form onSubmit={handleSubmit} className="bg-dark-card p-8 rounded-xl shadow-2xl w-full max-w-md mx-auto flex flex-col items-center border border-gray-700">
-            <h2 className="text-3xl font-extrabold text-accent-blue mb-6">
+        <form onSubmit={handleSubmit} className={formCardClasses}>
+            <h2 className={headingClasses}>
                 {type === 'login' ? 'Login' : 'Register'}
             </h2>
 
@@ -34,18 +41,17 @@ function AuthForm({ type, onSubmit }) {
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="w-full p-3 mb-4 border-2 border-gray-600 bg-gray-800 text-dark-text rounded-md focus:outline-none focus:border-accent-blue transition-all duration-200 placeholder-gray-400"
+                    className={inputClasses}
                     required
                 />
             )}
 
-            {/* Modified input for login, or email for register */}
             <input
-                type={type === 'login' ? 'text' : 'email'} // Type can be text for login to allow username
+                type={type === 'login' ? 'text' : 'email'}
                 placeholder={type === 'login' ? 'Username or Email' : 'Email'}
                 value={type === 'login' ? loginIdentifier : email}
                 onChange={(e) => type === 'login' ? setLoginIdentifier(e.target.value) : setEmail(e.target.value)}
-                className="w-full p-3 mb-4 border-2 border-gray-600 bg-gray-800 text-dark-text rounded-md focus:outline-none focus:border-accent-blue transition-all duration-200 placeholder-gray-400"
+                className={inputClasses}
                 required
             />
 
@@ -54,7 +60,7 @@ function AuthForm({ type, onSubmit }) {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-3 mb-4 border-2 border-gray-600 bg-gray-800 text-dark-text rounded-md focus:outline-none focus:border-accent-blue transition-all duration-200 placeholder-gray-400"
+                className={inputClasses}
                 required
             />
 
@@ -64,15 +70,12 @@ function AuthForm({ type, onSubmit }) {
                     placeholder="Confirm Password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full p-3 mb-6 border-2 border-gray-600 bg-gray-800 text-dark-text rounded-md focus:outline-none focus:border-accent-blue transition-all duration-200 placeholder-gray-400"
+                    className={inputClasses}
                     required
                 />
             )}
 
-            <button
-                type="submit"
-                className="w-full px-6 py-3 bg-accent-blue text-dark-bg font-bold rounded-md text-lg hover:bg-accent-purple transition-all duration-300 shadow-lg transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-opacity-50"
-            >
+            <button type="submit" className={buttonClasses}>
                 {type === 'login' ? 'Login' : 'Register'}
             </button>
         </form>

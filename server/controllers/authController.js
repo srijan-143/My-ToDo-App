@@ -15,37 +15,45 @@ const generateToken = (id) => {
 // @access  Public
 exports.registerUser = async (req, res) => {
     const { username, email, password } = req.body;
+    console.log('Register request received:', { username, email }); // NEW LOG
 
     try {
-        // Check if user already exists by email or username
         let user = await User.findOne({ email });
         if (user) {
+            console.log('Registration failed: Email already exists'); // NEW LOG
             return res.status(400).json({ message: 'User with that email already exists' });
         }
         user = await User.findOne({ username });
         if (user) {
+            console.log('Registration failed: Username already exists'); // NEW LOG
             return res.status(400).json({ message: 'User with that username already exists' });
         }
 
+        console.log('Attempting to create new user in DB...'); // NEW LOG
         // Create new user
         user = await User.create({
             username,
             email,
             password,
         });
+        console.log('User.create() result:', user); // NEW LOG
 
         if (user) {
+            // If user created successfully
+            console.log('User created successfully, generating token.'); // NEW LOG
             res.status(201).json({
                 _id: user._id,
                 username: user.username,
                 email: user.email,
+                isHelloKittyUser: user.isHelloKittyUser,
                 token: generateToken(user._id),
             });
         } else {
+            console.log('Registration failed: Invalid user data (Mongoose issue)'); // NEW LOG
             res.status(400).json({ message: 'Invalid user data' });
         }
     } catch (error) {
-        console.error('Error during user registration:', error);
+        console.error('Error in registerUser catch block:', error); // ENHANCED LOG
         res.status(500).json({ message: error.message || 'Server Error' });
     }
 };
@@ -54,27 +62,26 @@ exports.registerUser = async (req, res) => {
 // @route   POST /api/auth/login
 // @access  Public
 exports.authUser = async (req, res) => {
-    const { identifier, password } = req.body; // 'identifier' can be email or username
+    const { identifier, password } = req.body;
 
     try {
-        // Try to find user by email first
         let user = await User.findOne({ email: identifier });
-
-        // If not found by email, try to find by username
         if (!user) {
             user = await User.findOne({ username: identifier });
         }
 
-        // If user found by either and password matches
+        // NEW: Log the user object fetched from the database
+        console.log("User found from DB:", user); 
+
         if (user && (await user.matchPassword(password))) {
             res.json({
                 _id: user._id,
                 username: user.username,
                 email: user.email,
+                isHelloKittyUser: user.isHelloKittyUser, // Include the flag
                 token: generateToken(user._id),
             });
         } else {
-            // If no user found or password doesn't match
             res.status(401).json({ message: 'Invalid credentials' });
         }
     } catch (error) {
