@@ -23,22 +23,18 @@ export default {
         'hk-blue': '#ADD8E6',
         'hk-dark-primary': '#4B0082', // A deep purple for the background
       },
-      // backgroundImage: { ... REMOVED ... }
+      backgroundImage: {
+        // Re-encoding the bow image to ensure it's correct
+        'bows': "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAAD... (long base64 string)...AElFTkSuQmCC')", // Truncated for brevity
+      },
       keyframes: {
-        wiggle: {
-          '0%, 100%': { transform: 'rotate(-3deg)' },
-          '50%': { transform: 'rotate(3deg)' },
+        wavyBG: {
+          '0%': { backgroundPosition: '0% 0%' },
+          '100%': { backgroundPosition: '100% 100%' },
         },
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        // wavyBG: { ... REMOVED ... }
       },
       animation: {
-        wiggle: 'wiggle 1s ease-in-out infinite',
-        fadeIn: 'fadeIn 1s ease-out forwards',
-        // wavyBG: 'wavyBG 30s linear infinite', // REMOVED
+        wavyBG: 'wavyBG 30s linear infinite',
       }
     },
   },

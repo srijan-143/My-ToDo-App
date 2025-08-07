@@ -1,5 +1,6 @@
 // client/src/components/AuthForm.jsx
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // NEW: Import Link
 
 function AuthForm({ type, onSubmit, isHelloKittyTheme }) {
     const [username, setUsername] = useState('');
@@ -28,6 +29,7 @@ function AuthForm({ type, onSubmit, isHelloKittyTheme }) {
     const buttonClasses = `w-full px-6 py-3 font-bold rounded-md text-lg shadow-lg transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-opacity-50
         ${isHelloKittyTheme ? 'bg-hk-red text-hk-white hover:bg-hk-pink focus:ring-hk-red' : 'bg-accent-blue text-dark-bg hover:bg-accent-purple focus:ring-accent-blue'}`;
     const headingClasses = `text-3xl font-extrabold mb-6 ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`;
+    const linkClasses = `mt-4 text-sm font-semibold ${isHelloKittyTheme ? 'text-hk-dark-primary hover:text-hk-red' : 'text-accent-blue hover:text-accent-purple'}`;
 
     return (
         <form onSubmit={handleSubmit} className={formCardClasses}>
@@ -78,6 +80,17 @@ function AuthForm({ type, onSubmit, isHelloKittyTheme }) {
             <button type="submit" className={buttonClasses}>
                 {type === 'login' ? 'Login' : 'Register'}
             </button>
+
+            {/* NEW: Link to switch between forms */}
+            {type === 'login' ? (
+                <Link to="/register" className={linkClasses}>
+                    Don't have an account? Register here.
+                </Link>
+            ) : (
+                <Link to="/login" className={linkClasses}>
+                    Already have an account? Login here.
+                </Link>
+            )}
         </form>
     );
 }

@@ -1,10 +1,12 @@
+// client/src/App.jsx
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import AuthForm from './components/AuthForm';
+import LandingPage from './components/LandingPage';
 import axios from 'axios';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -23,7 +25,7 @@ function App() {
       localStorage.setItem('authToken', token);
       localStorage.setItem('user', JSON.stringify(userData));
       setUser(userData);
-      navigate('/');
+      navigate('/todos');
     } catch (error) {
       console.error(`Error during ${type}:`, error.response?.data?.message || error.message);
       alert(error.response?.data?.message || `Failed to ${type}. Please try again.`);
@@ -34,7 +36,7 @@ function App() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     setUser(null);
-    navigate('/login');
+    navigate('/');
   };
 
   // --- Core Application Logic ---
@@ -53,8 +55,8 @@ function App() {
         }
       }
       setLoading(false);
-      if (!token && window.location.pathname !== '/login' && window.location.pathname !== '/register') {
-        navigate('/login');
+      if (!token && window.location.pathname !== '/login' && window.location.pathname !== '/register' && window.location.pathname !== '/') {
+        navigate('/');
       }
     };
     checkAuthStatus();
@@ -66,7 +68,7 @@ function App() {
         try {
           const token = localStorage.getItem('authToken');
           if (!token) {
-            navigate('/login');
+            navigate('/');
             return;
           }
           const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -130,7 +132,7 @@ function App() {
 
   const isHelloKittyTheme = user?.email === 'khushijain15082005@gmail.com';
   const appTitle = isHelloKittyTheme ? "Her Cute To-Do List!" : "Simple To-Do List";
-
+  
   useEffect(() => {
     const htmlElement = document.documentElement;
     if (isHelloKittyTheme) {
@@ -141,12 +143,11 @@ function App() {
         htmlElement.classList.add('dark');
     }
   }, [isHelloKittyTheme]);
-
+  
   const mainContainerClasses = `flex flex-col items-center justify-center p-4 w-full h-full`;
   const appCardClasses = `p-6 md:p-8 lg:p-10 rounded-xl shadow-2xl w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl transform transition-transform duration-200 relative
-  flex flex-col items-center   /* THIS IS THE CHANGE: ensures children are centered horizontally */
-  ${isHelloKittyTheme ? 'bg-hk-light-pink border-hk-pink shadow-lg' : 'bg-dark-card border border-gray-700'}`;
-
+    flex flex-col items-center
+    ${isHelloKittyTheme ? 'bg-hk-light-pink border-hk-pink shadow-lg' : 'bg-dark-card border border-gray-700'}`;
   const headingClasses = `text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`;
   const logoutButtonClasses = `absolute top-4 right-4 px-3 py-1 text-white rounded-md text-sm transition-colors duration-200 shadow-md ${isHelloKittyTheme ? 'bg-hk-red hover:bg-red-700' : 'bg-red-600 hover:bg-red-700'}`;
   const loginRegisterWrapperClasses = `text-xl font-bold flex flex-col items-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-dark-text'}`;
@@ -160,7 +161,7 @@ function App() {
       </div>
     );
   }
-  
+
   return (
     <div className={mainContainerClasses}>
       <div className={appCardClasses}>
@@ -171,9 +172,10 @@ function App() {
         )}
 
         <Routes>
-          <Route path="/login" element={<AuthForm isHelloKittyTheme={isHelloKittyTheme} type="login" onSubmit={(formData) => handleAuthSubmit(formData, 'login')} />} />
-          <Route path="/register" element={<AuthForm isHelloKittyTheme={isHelloKittyTheme} type="register" onSubmit={(formData) => handleAuthSubmit(formData, 'register')} />} />
-          <Route path="/" element={
+          <Route path="/" element={user ? <Navigate to="/todos" /> : <LandingPage />} />
+          <Route path="/login" element={user ? <Navigate to="/todos" /> : <AuthForm isHelloKittyTheme={isHelloKittyTheme} type="login" onSubmit={(formData) => handleAuthSubmit(formData, 'login')} />} />
+          <Route path="/register" element={user ? <Navigate to="/todos" /> : <AuthForm isHelloKittyTheme={isHelloKittyTheme} type="register" onSubmit={(formData) => handleAuthSubmit(formData, 'register')} />} />
+          <Route path="/todos" element={
             user ? (
                 <>
                   <h1 className={headingClasses}>{appTitle}</h1>
@@ -186,17 +188,7 @@ function App() {
                   />
                 </>
             ) : (
-                <div className={loginRegisterWrapperClasses}>
-                    <p className="mb-4 text-center">Please log in or register to view your tasks.</p>
-                    <div className="flex space-x-4">
-                        <button onClick={() => navigate('/login')} className={loginButtonClasses}>
-                            Login
-                        </button>
-                        <button onClick={() => navigate('/register')} className={registerButtonClasses}>
-                            Register
-                        </button>
-                    </div>
-                </div>
+                <Navigate to="/" />
             )
           } />
         </Routes>
