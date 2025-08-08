@@ -199,21 +199,22 @@ function App() {
           <Route path="/register" element={user ? <Navigate to="/todos" /> : <AuthForm isHelloKittyTheme={isHelloKittyTheme} type="register" onSubmit={(formData) => handleAuthSubmit(formData, 'register')} />} />
           <Route path="/todos" element={
             user ? (
-                <>
-                  <h1 className={headingClasses}>{appTitle}</h1>
-                  <TodoForm onAddTodo={handleAddTodo} isHelloKittyTheme={isHelloKittyTheme} />
-                  <TodoList
-                    isHelloKittyTheme={isHelloKittyTheme}
-                    todos={todos}
-                    onDeleteTodo={handleDeleteTodo}
-                    onToggleComplete={handleToggleComplete}
-                    onEditTodo={handleEditTodo}
-                  />
-                </>
-            ) : (
-                <Navigate to="/" />
-            )
-          } />
+                    // This container now conditionally centers its content vertically
+                    <div className={`flex flex-col items-center w-full ${todos.length === 0 ? 'justify-center min-h-[250px]' : ''}`}>
+                        <h1 className={`text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`}>{appTitle}</h1>
+                        <TodoForm onAddTodo={handleAddTodo} isHelloKittyTheme={isHelloKittyTheme} />
+                        <TodoList
+                            isHelloKittyTheme={isHelloKittyTheme}
+                            todos={todos}
+                            onDeleteTodo={handleDeleteTodo}
+                            onToggleComplete={handleToggleComplete}
+                            onEditTodo={handleEditTodo}
+                        />
+                    </div>
+                ) : (
+                    <Navigate to="/" />
+                )
+            } />
         </Routes>
       </div>
     </div>
