@@ -92,6 +92,23 @@ function App() {
     }
   }, [user, loading, navigate]);
 
+  const handleEditTodo = async (idToEdit, newText) => {
+      try {
+          const token = localStorage.getItem('authToken');
+          const config = { headers: { Authorization: `Bearer ${token}` } };
+          const response = await axios.put(`${API_URL}/${idToEdit}`, { text: newText }, config);
+          setTodos((prevTodos) =>
+              prevTodos.map(todo =>
+                  todo._id === idToEdit ? response.data : todo
+              )
+          );
+          console.log("Edited todo on backend for ID:", idToEdit, response.data);
+      } catch (error) {
+          console.error('Error editing todo:', error.response?.data?.message || error.message);
+          if (error.response && error.response.status === 401) { handleLogout(); }
+      }
+  };
+
   const handleAddTodo = async (text) => {
     try {
       const token = localStorage.getItem('authToken');
@@ -150,9 +167,9 @@ function App() {
   }, [isHelloKittyTheme]);
   
   const mainContainerClasses = `flex flex-col items-center justify-center p-4 w-full h-full`;
-  const appCardClasses = `p-6 md:p-8 lg:p-10 rounded-xl shadow-2xl w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl transform transition-transform duration-200 relative
-    flex flex-col items-center
-    ${isHelloKittyTheme ? 'bg-hk-light-pink border-hk-pink shadow-lg' : 'bg-dark-card border border-gray-700'}`;
+  const appCardClasses = `p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl shadow-2xl w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl transform transition-transform duration-200 relative flex flex-col items-center
+  ${isHelloKittyTheme ? 'bg-hk-light-pink border-hk-pink shadow-lg' : 'bg-dark-card border border-gray-700'}`;
+  
   const headingClasses = `text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`;
   const logoutButtonClasses = `absolute top-4 right-4 px-3 py-1 text-white rounded-md text-sm transition-colors duration-200 shadow-md ${isHelloKittyTheme ? 'bg-hk-red hover:bg-red-700' : 'bg-red-600 hover:bg-red-700'}`;
   const loginRegisterWrapperClasses = `text-xl font-bold flex flex-col items-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-dark-text'}`;
@@ -190,6 +207,7 @@ function App() {
                     todos={todos}
                     onDeleteTodo={handleDeleteTodo}
                     onToggleComplete={handleToggleComplete}
+                    onEditTodo={handleEditTodo}
                   />
                 </>
             ) : (

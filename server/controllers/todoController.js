@@ -66,6 +66,10 @@ exports.deleteTodo = async (req, res) => {
 // @desc    Update a todo for the authenticated user
 // @route   PUT /api/todos/:id
 // @access  Private (now requires authentication)
+// server/controllers/todoController.js
+
+// ... (other functions) ...
+
 exports.updateTodo = async (req, res) => {
     const { text, completed } = req.body;
 
@@ -81,13 +85,13 @@ exports.updateTodo = async (req, res) => {
         }
 
         // Ensure the logged-in user owns the todo before updating
-        if (todo.owner.toString() !== req.user._id.toString()) { // Compare ObjectIds as strings
+        if (todo.owner.toString() !== req.user._id.toString()) {
             return res.status(401).json({ message: 'Not authorized to update this todo' });
         }
 
         // Update fields if provided
         if (text !== undefined) {
-            todo.text = text;
+            todo.text = text; // This line handles the text update
         }
         if (completed !== undefined) {
             todo.completed = completed;
