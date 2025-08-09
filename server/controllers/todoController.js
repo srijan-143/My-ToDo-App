@@ -20,7 +20,7 @@ exports.getTodos = async (req, res) => {
 // @route   POST /api/todos
 // @access  Private (now requires authentication)
 exports.addTodo = async (req, res) => {
-    const { text } = req.body;
+    const { text, priority } = req.body; // NEW: Destructure priority from the body
 
     if (!text || text.trim() === '') {
         return res.status(400).json({ message: 'Todo text cannot be empty' });
@@ -28,7 +28,8 @@ exports.addTodo = async (req, res) => {
 
     const newTodo = new Todo({
         text,
-        owner: req.user._id, // NEW: Assign the logged-in user as the owner
+        owner: req.user._id,
+        priority, // NEW: Assign the priority from the request body
     });
     try {
         const savedTodo = await newTodo.save();
@@ -71,7 +72,7 @@ exports.deleteTodo = async (req, res) => {
 // ... (other functions) ...
 
 exports.updateTodo = async (req, res) => {
-    const { text, completed } = req.body;
+    const { text, completed, priority } = req.body; // NEW: Destructure priority from the body
 
     if (text !== undefined && text.trim() === '') {
         return res.status(400).json({ message: 'Todo text cannot be empty' });
@@ -91,10 +92,13 @@ exports.updateTodo = async (req, res) => {
 
         // Update fields if provided
         if (text !== undefined) {
-            todo.text = text; // This line handles the text update
+            todo.text = text;
         }
         if (completed !== undefined) {
             todo.completed = completed;
+        }
+        if (priority !== undefined) {
+            todo.priority = priority; // NEW: Update the priority if it's provided
         }
 
         const updatedTodo = await todo.save();

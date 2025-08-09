@@ -109,16 +109,17 @@ function App() {
       }
   };
 
-  const handleAddTodo = async (text) => {
-    try {
-      const token = localStorage.getItem('authToken');
-      const config = { headers: { Authorization: `Bearer ${token}` } };
-      const response = await axios.post(API_URL, { text }, config);
-      setTodos((prevTodos) => [...prevTodos, response.data]);
-    } catch (error) {
-      console.error('Error adding todo:', error.response?.data?.message || error.message);
-      if (error.response && error.response.status === 401) { handleLogout(); }
-    }
+  const handleAddTodo = async (text, priority) => { // NEW: Add priority parameter
+      try {
+          const token = localStorage.getItem('authToken');
+          const config = { headers: { Authorization: `Bearer ${token}` } };
+          const response = await axios.post(API_URL, { text, priority }, config); // NEW: Send priority in the request body
+          setTodos((prevTodos) => [...prevTodos, response.data]);
+          console.log("Added todo to backend:", response.data);
+      } catch (error) {
+          console.error('Error adding todo:', error.response?.data?.message || error.message);
+          if (error.response && error.response.status === 401) { handleLogout(); }
+      }
   };
 
   const handleDeleteTodo = async (idToDelete) => {
@@ -200,8 +201,8 @@ function App() {
           <Route path="/todos" element={
             user ? (
                     // This container now conditionally centers its content vertically
-                    <div className={`flex flex-col items-center w-full ${todos.length === 0 ? 'justify-center min-h-[250px]' : ''}`}>
-                        <h1 className={`text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`}>{appTitle}</h1>
+                    <div className={`flex flex-col items-center w-full ${todos.length === 0 ? 'justify-center min-h-[300px]' : ''}`}>
+                        <h1 className={`text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`}>{appTitle}</h1>
                         <TodoForm onAddTodo={handleAddTodo} isHelloKittyTheme={isHelloKittyTheme} />
                         <TodoList
                             isHelloKittyTheme={isHelloKittyTheme}

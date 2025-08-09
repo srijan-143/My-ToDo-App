@@ -1,4 +1,5 @@
 // server/models/Todo.js
+
 const mongoose = require('mongoose');
 
 const todoSchema = new mongoose.Schema({
@@ -11,10 +12,15 @@ const todoSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    owner: { // NEW: Link to the User model
-        type: mongoose.Schema.Types.ObjectId, // This type indicates it's an ID from another document
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'User' // This specifies that the ID refers to a document in the 'users' collection
+        ref: 'User'
+    },
+    priority: { // NEW: Add a priority field
+        type: String,
+        enum: ['Low', 'Medium', 'High'], // Restrict values to these options
+        default: 'Medium'
     },
     createdAt: {
         type: Date,
