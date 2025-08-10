@@ -13,11 +13,11 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // const API_URL = 'http://localhost:5000/api/todos';
-  // const AUTH_API_URL = 'http://localhost:5000/api/auth';
+  const API_URL = 'http://localhost:5000/api/todos';
+  const AUTH_API_URL = 'http://localhost:5000/api/auth';
 
-  const API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/todos';
-  const AUTH_API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/auth';
+  // const API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/todos';
+  // const AUTH_API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/auth';
 
   const navigate = useNavigate();
 
@@ -167,15 +167,19 @@ function App() {
     }
   }, [isHelloKittyTheme]);
   
-  const mainContainerClasses = `flex flex-col items-center justify-center p-4 w-full h-full`;
-  const appCardClasses = `p-4 sm:p-6 md:p-8 lg:p-10 rounded-xl shadow-2xl w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl transform transition-transform duration-200 relative flex flex-col items-center
-  ${isHelloKittyTheme ? 'bg-hk-light-pink border-hk-pink shadow-lg' : 'bg-dark-card border border-gray-700'}`;
-  
-  const headingClasses = `text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`;
-  const logoutButtonClasses = `absolute top-4 right-4 px-3 py-1 text-white rounded-md text-sm transition-colors duration-200 shadow-md ${isHelloKittyTheme ? 'bg-hk-red hover:bg-red-700' : 'bg-red-600 hover:bg-red-700'}`;
-  const loginRegisterWrapperClasses = `text-xl font-bold flex flex-col items-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-dark-text'}`;
-  const loginButtonClasses = `px-6 py-3 font-bold rounded-md text-lg shadow-lg ${isHelloKittyTheme ? 'bg-hk-red text-hk-white hover:bg-hk-pink' : 'bg-accent-blue text-dark-bg hover:bg-accent-purple'}`;
-  const registerButtonClasses = `px-6 py-3 font-bold rounded-md text-lg shadow-lg ${isHelloKittyTheme ? 'bg-hk-pink text-hk-white hover:bg-hk-red' : 'bg-accent-purple text-white hover:bg-accent-blue'}`;
+  const mainContainerClasses = `flex flex-col items-center justify-center p-2 sm:p-4 w-full min-h-screen`;
+
+
+// client/src/App.jsx
+const appCardClasses = `p-3 sm:p-6 md:p-8 rounded-xl shadow-2xl w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl transform transition-transform duration-200 relative flex flex-col items-center mx-2 sm:mx-4
+    ${isHelloKittyTheme ? 'bg-hk-light-pink border-hk-pink shadow-lg' : 'bg-dark-card border border-gray-700'}`;
+const headingClasses = `text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4 sm:mb-6 tracking-tight text-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`;
+
+
+  const logoutButtonClasses = `absolute top-2 right-2 sm:top-4 sm:right-4 px-2 py-1 sm:px-3 sm:py-1 text-white rounded-md text-xs sm:text-sm transition-colors duration-200 shadow-md ${isHelloKittyTheme ? 'bg-hk-red hover:bg-red-700' : 'bg-red-600 hover:bg-red-700'}`;
+  const loginRegisterWrapperClasses = `text-lg sm:text-xl font-bold flex flex-col items-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-dark-text'}`;
+  const loginButtonClasses = `px-4 py-2 sm:px-6 sm:py-3 font-bold rounded-md text-base sm:text-lg shadow-lg ${isHelloKittyTheme ? 'bg-hk-red text-hk-white hover:bg-hk-pink' : 'bg-accent-blue text-dark-bg hover:bg-accent-purple'}`;
+  const registerButtonClasses = `px-4 py-2 sm:px-6 sm:py-3 font-bold rounded-md text-base sm:text-lg shadow-lg ${isHelloKittyTheme ? 'bg-hk-pink text-hk-white hover:bg-hk-red' : 'bg-accent-purple text-white hover:bg-accent-blue'}`;
 
   if (loading) {
     return (
@@ -201,8 +205,8 @@ function App() {
           <Route path="/todos" element={
             user ? (
                     // This container now conditionally centers its content vertically
-                    <div className={`flex flex-col items-center w-full ${todos.length === 0 ? 'justify-center min-h-[300px]' : ''}`}>
-                        <h1 className={`text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`}>{appTitle}</h1>
+                    <div className={`flex flex-col items-center w-full ${todos.length === 0 ? 'justify-center min-h-[250px] sm:min-h-[300px]' : ''}`}>
+                        <h1 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 sm:mb-6 tracking-tight text-center px-2 ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`}>{appTitle}</h1>
                         <TodoForm onAddTodo={handleAddTodo} isHelloKittyTheme={isHelloKittyTheme} />
                         <TodoList
                             isHelloKittyTheme={isHelloKittyTheme}

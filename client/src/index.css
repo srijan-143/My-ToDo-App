@@ -13,6 +13,11 @@ body {
   width: 100%;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  /* Prevent zoom on iOS when input fields are focused */
+  -webkit-text-size-adjust: 100%;
+  /* Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html.dark {
@@ -42,7 +47,7 @@ html.hello-kitty-theme {
 
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #2d3748;
@@ -56,12 +61,58 @@ html.hello-kitty-theme {
   background: #81e6d9;
 }
 
+/* Mobile scrollbar adjustments */
+@media (max-width: 640px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+}
+
 #root {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
   position: relative;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 640px) {
+  #root {
+    padding: 0.25rem;
+    align-items: flex-start;
+    padding-top: 1rem;
+  }
+}
+
+/* Ensure touch targets are at least 44px for mobile accessibility */
+@media (max-width: 640px) {
+  button, input, select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Additional responsive utilities */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Text that should break properly on mobile */
+.break-words {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Safe area for devices with notches */
+@supports (padding: max(0px)) {
+  #root {
+    padding-left: max(0.5rem, env(safe-area-inset-left));
+    padding-right: max(0.5rem, env(safe-area-inset-right));
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
 }
