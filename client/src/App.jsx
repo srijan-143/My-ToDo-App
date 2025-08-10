@@ -13,11 +13,11 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const API_URL = 'http://localhost:5000/api/todos';
-  const AUTH_API_URL = 'http://localhost:5000/api/auth';
+  // const API_URL = 'http://localhost:5000/api/todos';
+  // const AUTH_API_URL = 'http://localhost:5000/api/auth';
 
-  // const API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/todos';
-  // const AUTH_API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/auth';
+  const API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/todos';
+  const AUTH_API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/auth';
 
   const navigate = useNavigate();
 
