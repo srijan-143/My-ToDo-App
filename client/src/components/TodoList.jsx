@@ -6,7 +6,7 @@ import TodoItem from './TodoItem';
 
 function TodoList({ todos, onDeleteTodo, onToggleComplete, onEditTodo, isHelloKittyTheme }) {
     return (
-        <div className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl mt-4 sm:mt-6 md:mt-8 px-2 sm:px-0">
+        <div className="w-full max-w-full mt-4 sm:mt-6 md:mt-8 px-4">
             {todos.length === 0 ? (
                 <div className="text-center py-8">
                     <p className={`text-base sm:text-lg italic ${isHelloKittyTheme ? 'text-hk-dark-primary' : 'text-dark-text-muted'}`}>

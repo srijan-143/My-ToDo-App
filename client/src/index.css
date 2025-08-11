@@ -20,6 +20,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html, body {
+  height: 100vh;
+  overflow-x: hidden;
+}
+
 html.dark {
     @apply bg-dark-bg text-dark-text font-sans;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -29,20 +34,31 @@ html.hello-kitty-theme {
     /* Apply the pink background color */
     @apply bg-hk-light-pink text-hk-dark-primary font-sans; /* Changed text color for better contrast on pink */
 
-    /* Reference the bow.png image directly from the public folder */
+    /* Reference the bow.png image directly from the public folder - optimized for mobile */
     background-image: url('/bow.png');
-    background-repeat: repeat; /* Make the image repeat */
-    background-size: 100px; /* Adjust size of each bow as needed */
+    background-repeat: repeat; 
+    background-size: 60px; /* Smaller size for mobile optimization */
+    background-attachment: fixed; /* Keep background fixed to prevent scrolling issues */
 
-    /* Define and apply the animation for the background */
-    animation: slideBackground 60s linear infinite; /* Slower animation for subtle effect */
+    /* Slower, more subtle animation for mobile optimization */
+    animation: slideBackground 120s linear infinite; 
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Optimize background animation for mobile */
+@media (max-width: 768px) {
+    html.hello-kitty-theme {
+        background-size: 40px; /* Even smaller for mobile */
+        animation: slideBackground 180s linear infinite; /* Slower animation for better performance */
+        /* Use local attachment on mobile to prevent performance issues */
+        background-attachment: local;
+    }
 }
 
 /* NEW: Define the keyframes for the slideBackground animation */
 @keyframes slideBackground {
   from { background-position: 0 0; }
-  to { background-position: 100% 100%; } /* Slides diagonally */
+  to { background-position: 100px 100px; } /* Reduced movement for better performance */
 }
 
 
@@ -76,14 +92,29 @@ html.hello-kitty-theme {
   width: 100%;
   padding: 0.5rem;
   position: relative;
+  overflow-y: auto;
 }
 
 /* Mobile-specific styles */
 @media (max-width: 640px) {
   #root {
-    padding: 0.25rem;
-    align-items: flex-start;
-    padding-top: 1rem;
+    padding: 0.5rem;
+    padding-top: 0.5rem;
+    /* Keep centered alignment on mobile too */
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Ensure no horizontal overflow on mobile */
+  body, html {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  /* Fix button sizing on mobile */
+  button {
+    font-size: 0.875rem !important;
+    padding: 0.75rem 0.75rem !important;
   }
 }
 
@@ -115,4 +146,24 @@ html.hello-kitty-theme {
     padding-right: max(0.5rem, env(safe-area-inset-right));
     padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
   }
+}
+
+/* Prevent overscroll bounce on mobile */
+@media (max-width: 768px) {
+  body {
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Optimize performance on mobile by reducing animations */
+  .hello-kitty-theme * {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.3s !important;
+  }
+}
+
+/* Ensure proper touch interaction */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }

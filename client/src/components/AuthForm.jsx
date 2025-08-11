@@ -22,13 +22,13 @@ function AuthForm({ type, onSubmit, isHelloKittyTheme }) {
         }
     };
 
-    const formCardClasses = `p-4 sm:p-6 md:p-8 rounded-xl shadow-2xl w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto flex flex-col items-center
+    const formCardClasses = `p-6 sm:p-8 md:p-10 rounded-xl shadow-2xl w-full max-w-full sm:max-w-sm md:max-w-md mx-auto my-auto flex flex-col items-center
         ${isHelloKittyTheme ? 'bg-hk-light-pink border-hk-pink shadow-lg' : 'bg-dark-card border border-gray-700'}`;
     const inputClasses = `w-full p-3 sm:p-4 mb-3 sm:mb-4 border-2 rounded-md focus:outline-none transition-all duration-200 placeholder-gray-400 text-base sm:text-lg
         ${isHelloKittyTheme ? 'border-hk-pink bg-hk-white text-hk-dark-primary focus:border-hk-red' : 'border-gray-600 bg-gray-800 text-dark-text focus:border-accent-blue'}`;
     const buttonClasses = `w-full px-4 sm:px-6 py-3 sm:py-4 font-bold rounded-md text-base sm:text-lg shadow-lg transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-opacity-50 transition-all duration-200
         ${isHelloKittyTheme ? 'bg-hk-red text-hk-white hover:bg-hk-pink focus:ring-hk-red' : 'bg-accent-blue text-dark-bg hover:bg-accent-purple focus:ring-accent-blue'}`;
-    const headingClasses = `text-2xl sm:text-3xl font-extrabold mb-4 sm:mb-6 ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`;
+    const headingClasses = `text-xl sm:text-2xl md:text-3xl font-extrabold mb-4 sm:mb-6 ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`;
     const linkClasses = `mt-4 text-sm sm:text-base font-semibold transition-colors duration-200 text-center ${isHelloKittyTheme ? 'text-hk-dark-primary hover:text-hk-red' : 'text-accent-blue hover:text-accent-purple'}`;
 
     return (

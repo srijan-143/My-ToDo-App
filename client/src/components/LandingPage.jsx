@@ -3,17 +3,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function LandingPage() {
-    // We'll define a simple, clean look for the landing page.
-    // It will use the dark aesthetic by default, but we'll apply a conditional
-    // theme later if needed.
-
     return (
-        <div className="flex flex-col items-center justify-center text-center p-4 sm:p-6 md:p-8 bg-dark-card rounded-xl shadow-2xl border border-gray-700 max-w-sm sm:max-w-md md:max-w-lg mx-auto">
+        <div className="flex flex-col items-center justify-center text-center p-6 sm:p-8 md:p-10 bg-dark-card rounded-xl shadow-2xl border border-gray-700 w-full max-w-full sm:max-w-md md:max-w-lg mx-auto my-auto">
             <div className="mb-6">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-accent-blue mb-4 tracking-tight leading-tight">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-accent-blue mb-4 tracking-tight leading-tight">
                     Welcome to Your To-Do App
                 </h1>
-                <p className="text-sm sm:text-base md:text-lg text-dark-text-muted mb-6 sm:mb-8 max-w-prose leading-relaxed">
+                <p className="text-sm sm:text-base md:text-lg text-dark-text-muted mb-6 sm:mb-8 leading-relaxed">
                     Organize your life, one task at a time. Log in or register to get started with your own personalized to-do list.
                 </p>
             </div>

@@ -13,11 +13,11 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // const API_URL = 'http://localhost:5000/api/todos';
-  // const AUTH_API_URL = 'http://localhost:5000/api/auth';
+  const API_URL = 'http://localhost:5000/api/todos';
+  const AUTH_API_URL = 'http://localhost:5000/api/auth';
 
-  const API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/todos';
-  const AUTH_API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/auth';
+  // const API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/todos';
+  // const AUTH_API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/auth';
 
   const navigate = useNavigate();
 
@@ -169,14 +169,13 @@ function App() {
   
   const mainContainerClasses = `flex flex-col items-center justify-center p-2 sm:p-4 w-full min-h-screen`;
 
-
 // client/src/App.jsx
-const appCardClasses = `p-3 sm:p-6 md:p-8 rounded-xl shadow-2xl w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl transform transition-transform duration-200 relative flex flex-col items-center mx-2 sm:mx-4
+const appCardClasses = `p-3 sm:p-4 md:p-6 lg:p-8 rounded-xl shadow-2xl w-full max-w-full sm:max-w-lg md:max-w-2xl lg:max-w-4xl transform transition-transform duration-200 relative flex flex-col items-center mx-2 sm:mx-auto
     ${isHelloKittyTheme ? 'bg-hk-light-pink border-hk-pink shadow-lg' : 'bg-dark-card border border-gray-700'}`;
-const headingClasses = `text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4 sm:mb-6 tracking-tight text-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`;
+const headingClasses = `text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold mb-4 sm:mb-6 tracking-tight text-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`;
 
 
-  const logoutButtonClasses = `absolute top-2 right-2 sm:top-4 sm:right-4 px-2 py-1 sm:px-3 sm:py-1 text-white rounded-md text-xs sm:text-sm transition-colors duration-200 shadow-md ${isHelloKittyTheme ? 'bg-hk-red hover:bg-red-700' : 'bg-red-600 hover:bg-red-700'}`;
+  const logoutButtonClasses = `absolute top-3 right-3 sm:top-4 sm:right-4 px-3 py-2 text-white rounded-md text-sm sm:text-base transition-colors duration-200 shadow-md z-10 ${isHelloKittyTheme ? 'bg-hk-red hover:bg-red-700' : 'bg-red-600 hover:bg-red-700'}`;
   const loginRegisterWrapperClasses = `text-lg sm:text-xl font-bold flex flex-col items-center ${isHelloKittyTheme ? 'text-hk-red' : 'text-dark-text'}`;
   const loginButtonClasses = `px-4 py-2 sm:px-6 sm:py-3 font-bold rounded-md text-base sm:text-lg shadow-lg ${isHelloKittyTheme ? 'bg-hk-red text-hk-white hover:bg-hk-pink' : 'bg-accent-blue text-dark-bg hover:bg-accent-purple'}`;
   const registerButtonClasses = `px-4 py-2 sm:px-6 sm:py-3 font-bold rounded-md text-base sm:text-lg shadow-lg ${isHelloKittyTheme ? 'bg-hk-pink text-hk-white hover:bg-hk-red' : 'bg-accent-purple text-white hover:bg-accent-blue'}`;
@@ -204,9 +203,9 @@ const headingClasses = `text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4 sm:
           <Route path="/register" element={user ? <Navigate to="/todos" /> : <AuthForm isHelloKittyTheme={isHelloKittyTheme} type="register" onSubmit={(formData) => handleAuthSubmit(formData, 'register')} />} />
           <Route path="/todos" element={
             user ? (
-                    // This container now conditionally centers its content vertically
-                    <div className={`flex flex-col items-center w-full ${todos.length === 0 ? 'justify-center min-h-[250px] sm:min-h-[300px]' : ''}`}>
-                        <h1 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 sm:mb-6 tracking-tight text-center px-2 ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`}>{appTitle}</h1>
+                    // This container centers content properly with top padding for logout button
+                    <div className={`flex flex-col items-center w-full pt-12 sm:pt-8 ${todos.length === 0 ? 'justify-center min-h-[300px] sm:min-h-[400px]' : ''}`}>
+                        <h1 className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold mb-6 sm:mb-8 tracking-tight text-center px-4 ${isHelloKittyTheme ? 'text-hk-red' : 'text-accent-blue'}`}>{appTitle}</h1>
                         <TodoForm onAddTodo={handleAddTodo} isHelloKittyTheme={isHelloKittyTheme} />
                         <TodoList
                             isHelloKittyTheme={isHelloKittyTheme}
