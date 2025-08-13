@@ -18,7 +18,7 @@ function AuthForm({ type, onSubmit, isHelloKittyTheme }) {
     const [forgotResult, setForgotResult] = useState(null);
 
     // API URLs - matching your App.jsx
-    const AUTH_API_URL = 'http://localhost:5000/api/auth';
+    const AUTH_API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/auth';
 
     const handleSubmit = (e) => {
         e.preventDefault();

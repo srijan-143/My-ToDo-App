@@ -25,7 +25,24 @@ app.use('/api/todos', todoRoutes);
 
 // Simple root route
 app.get('/', (req, res) => {
-    res.send('API is running...');
+    res.json({
+        message: 'Todo API is running!',
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'development',
+        endpoints: {
+            auth: '/api/auth',
+            todos: '/api/todos'
+        }
+    });
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.json({
+        status: 'OK',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime()
+    });
 });
 
 // Start the server

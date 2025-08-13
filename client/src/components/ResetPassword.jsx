@@ -1,4 +1,4 @@
-// client/src/components/ResetPassword.jsx
+// client/src/c    const AUTH_API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/auth';mponents/ResetPassword.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
