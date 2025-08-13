@@ -5,6 +5,7 @@ import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import AuthForm from './components/AuthForm';
 import LandingPage from './components/LandingPage';
+import ResetPassword from './components/ResetPassword';
 import axios from 'axios';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 
@@ -201,6 +202,7 @@ const headingClasses = `text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabo
           <Route path="/" element={user ? <Navigate to="/todos" /> : <LandingPage />} />
           <Route path="/login" element={user ? <Navigate to="/todos" /> : <AuthForm isHelloKittyTheme={isHelloKittyTheme} type="login" onSubmit={(formData) => handleAuthSubmit(formData, 'login')} />} />
           <Route path="/register" element={user ? <Navigate to="/todos" /> : <AuthForm isHelloKittyTheme={isHelloKittyTheme} type="register" onSubmit={(formData) => handleAuthSubmit(formData, 'register')} />} />
+          <Route path="/reset-password/:token" element={user ? <Navigate to="/todos" /> : <ResetPassword isHelloKittyTheme={isHelloKittyTheme} />} />
           <Route path="/todos" element={
             user ? (
                     // This container centers content properly with top padding for logout button
