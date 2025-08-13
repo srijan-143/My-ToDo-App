@@ -1,16 +1,32 @@
 // server/utils/sendEmail.js
 const { Resend } = require('resend');
 
-// Initialize Resend with API key
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend with API key - with better error handling
+const resendApiKey = process.env.RESEND_API_KEY;
+
+if (!resendApiKey) {
+    console.error('❌ RESEND_API_KEY environment variable is not set!');
+    console.log('Available env vars:', Object.keys(process.env).filter(key => key.includes('RESEND')));
+}
+
+const resend = new Resend(resendApiKey);
 
 const sendPasswordResetEmail = async (to, resetToken, username) => {
     try {
+        // Check if Resend is properly initialized
+        if (!resendApiKey) {
+            console.error('❌ Cannot send email: RESEND_API_KEY is not configured');
+            return { 
+                success: false, 
+                error: 'Email service not configured. Please check environment variables.' 
+            };
+        }
+
         const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
         
         console.log('🔄 Attempting to send email to:', to);
         console.log('📧 Reset URL:', resetUrl);
-        console.log('🔑 Using API Key:', process.env.RESEND_API_KEY ? 'Present' : 'Missing');
+        console.log('🔑 API Key status:', resendApiKey ? '✅ Present' : '❌ Missing');
         console.log('📨 From email:', process.env.FROM_EMAIL);
 
         const emailContent = `
