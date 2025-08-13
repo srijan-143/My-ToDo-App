@@ -1,4 +1,4 @@
-// client/src/c    const AUTH_API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/auth';mponents/ResetPassword.jsx
+// client/src/components/ResetPassword.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -13,13 +13,19 @@ function ResetPassword({ isHelloKittyTheme }) {
     const { token } = useParams();
     const navigate = useNavigate();
     
-    // const AUTH_API_URL = 'http://localhost:5000/api/auth';
-    
     const AUTH_API_URL = 'https://my-todo-app-2-zmik.onrender.com/api/auth';
 
+    // Debug: Log when component mounts
     useEffect(() => {
+        console.log('🔄 ResetPassword component mounted');
+        console.log('📝 Token from URL:', token);
+        console.log('🌐 Current URL:', window.location.href);
+        
         if (!token) {
-            setError('Invalid reset token');
+            console.log('❌ No token found in URL parameters');
+            setError('Invalid reset token - no token provided');
+        } else {
+            console.log('✅ Valid token found:', token);
         }
     }, [token]);
 
@@ -95,6 +101,13 @@ function ResetPassword({ isHelloKittyTheme }) {
                 <h2 className={headingClasses}>
                     Reset Your Password
                 </h2>
+
+                {/* Debug info - remove this after testing */}
+                <div className="mb-4 p-3 bg-blue-100 border border-blue-300 rounded text-sm text-blue-800">
+                    <strong>Debug Info:</strong><br/>
+                    Token: {token || 'No token'}<br/>
+                    URL: {window.location.pathname}
+                </div>
 
                 {message && (
                     <div className={messageClasses}>

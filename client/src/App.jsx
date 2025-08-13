@@ -202,7 +202,7 @@ const headingClasses = `text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabo
           <Route path="/" element={user ? <Navigate to="/todos" /> : <LandingPage />} />
           <Route path="/login" element={user ? <Navigate to="/todos" /> : <AuthForm isHelloKittyTheme={isHelloKittyTheme} type="login" onSubmit={(formData) => handleAuthSubmit(formData, 'login')} />} />
           <Route path="/register" element={user ? <Navigate to="/todos" /> : <AuthForm isHelloKittyTheme={isHelloKittyTheme} type="register" onSubmit={(formData) => handleAuthSubmit(formData, 'register')} />} />
-          <Route path="/reset-password/:token" element={user ? <Navigate to="/todos" /> : <ResetPassword isHelloKittyTheme={isHelloKittyTheme} />} />
+          <Route path="/reset-password/:token" element={<ResetPassword isHelloKittyTheme={isHelloKittyTheme} />} />
           <Route path="/todos" element={
             user ? (
                     // This container centers content properly with top padding for logout button
