@@ -61,9 +61,9 @@ function App() {
         }
       }
       setLoading(false);
-      if (!token && window.location.pathname !== '/login' && window.location.pathname !== '/register' && window.location.pathname !== '/') {
+      if (!token && !window.location.pathname.startsWith('/reset-password') && window.location.pathname !== '/login' && window.location.pathname !== '/register' && window.location.pathname !== '/') {
         navigate('/');
-      }
+    }
     };
     checkAuthStatus();
   }, [navigate]);
