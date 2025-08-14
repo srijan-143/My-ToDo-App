@@ -102,13 +102,7 @@ function ResetPassword({ isHelloKittyTheme }) {
                     Reset Your Password
                 </h2>
 
-                {/* Debug info - remove this after testing */}
-                <div className="mb-4 p-3 bg-blue-100 border border-blue-300 rounded text-sm text-blue-800">
-                    <strong>Debug Info:</strong><br/>
-                    Token: {token || 'No token'}<br/>
-                    URL: {window.location.pathname}
-                </div>
-
+                
                 {message && (
                     <div className={messageClasses}>
                         {message}
