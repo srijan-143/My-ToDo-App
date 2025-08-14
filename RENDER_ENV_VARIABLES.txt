@@ -1,9 +1,0 @@
-# Environment Variables for Render Deployment
-# Go to your Render dashboard > Your Web Service > Environment
-
-PORT=10000
-MONGO_URI=mongodb+srv://srijan2k4:XDgoL3E4no4LYQYB@todo-cluster.kwpv0rn.mongodb.net/todolistDB?retryWrites=true&w=majority&appName=ToDo-Cluster
-JWT_SECRET=SUPER_SECRET_RANDOM_STRING_CHANGE_THIS_IN_PROD_12345!@#$
-RESEND_API_KEY=re_2jtQcbSL_3rHPtVEqX94n2HHwZhkdZajd
-FROM_EMAIL=noreply@srijansharma.me
-CLIENT_URL=https://srijan-app-phi.vercel.app
